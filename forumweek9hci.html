@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File TXT</title>
+</head>
+<body>
+    <script>
+        async function writeFile() {
+            const content = 'Hello, this is the content of the TXT file.';
+
+            try {
+                const handle = await window.showSaveFilePicker();
+                const writable = await handle.createWritable();
+                await writable.write(content);
+                await writable.close();
+                console.log('File written successfully.');
+            } catch (error) {
+                console.error('Error writing file:', error);
+            }
+        }
+
+        writeFile();
+    </script>
+</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <input type="file" id="fileInput" />
+    <script>
+        document.getElementById('fileInput').addEventListener('change', handleFile);
+
+        function handleFile(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const content = e.target.result;
+                    console.log(content);
+                };
+
+                reader.readAsText(file);
+            }
+        }
+    </script>
+</body>
+</html>
